@@ -4,7 +4,7 @@ const Todo=require('../models/Todo');
 const auth=require('../middleware/authMiddleware');
 
 router.get('/',auth,async (req,res)=>{
-    const todos=await Todo.find({userId:user.id});
+    const todos=await Todo.find({userId:req.user.id});
     res.json(todos);
 });
 
