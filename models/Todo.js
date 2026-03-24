@@ -1,10 +1,20 @@
-const mongoose=require('mongoose');
+const mongoose = require('mongoose');
 
-const todoSchema=new mongoose.Schema({
-    title:String,
-    completed:Number,
-    total:Number,
-    userId:String
+const subtaskSchema = new mongoose.Schema({
+  title: String,
+  isCompleted: {
+    type: Boolean,
+    default: false
+  }
 });
 
-module.exports=mongoose.model("Todo",todoSchema);
+const todoSchema = new mongoose.Schema({
+  title: String,
+  subtasks: [subtaskSchema],
+  user: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "User"
+  }
+});
+
+module.exports = mongoose.model("Todo", todoSchema);
